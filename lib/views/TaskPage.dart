@@ -15,8 +15,8 @@ class _TaskPageState extends State<TaskPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Task list"),
-      ),
+          title: Text("Task list"),
+          backgroundColor: Color.fromARGB(158, 255, 2, 91)),
       body: Consumer<TaskProvider>(builder: (_, TaskProvider, child) {
         return GetListView(provider: TaskProvider);
       }),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:things_to_do/controllers/TaskController.dart';
 import 'package:things_to_do/controllers/TaskProvider.dart';
 import 'package:things_to_do/models/Task.dart';
 
@@ -6,28 +7,34 @@ Future<void> PopUpWindow(
     BuildContext context, TaskProvider taskProvider) async {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+  final GlobalKey<FormState> _key = GlobalKey<FormState>();
 
   return showDialog(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
         title: Text('Nueva Tarea'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(
-              controller: titleController,
-              decoration: InputDecoration(
-                labelText: 'Título',
+        content: Form(
+          key: _key, // Asociar la clave con el formulario
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextFormField(
+                controller: titleController,
+                decoration: InputDecoration(
+                  labelText: 'Título',
+                ),
+                validator: validateField,
               ),
-            ),
-            TextField(
-              controller: descriptionController,
-              decoration: InputDecoration(
-                labelText: 'Descripción',
+              TextFormField(
+                controller: descriptionController,
+                decoration: InputDecoration(
+                  labelText: 'Descripción',
+                ),
+                validator: validateField,
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         actions: [
           TextButton(
@@ -38,20 +45,21 @@ Future<void> PopUpWindow(
           ),
           TextButton(
             onPressed: () {
-              // Aquí puedes guardar la tarea con el título y la descripción
-              String title = titleController.text;
-              String description = descriptionController.text;
-
-              // Realizar cambios en el proveedor
-              taskProvider.addTask(Task(
+              if (_key.currentState!.validate()) {
+                // Validar el formulario
+                // Aquí puedes guardar la tarea con el título y la descripción
+                String title = titleController.text;
+                String description = descriptionController.text;
+                Task task = Task(
                   title: title,
                   description: description,
-                  taskCompleted: false));
+                );
 
-              // Notificar a los widgets que escuchan cambios en el proveedor
-              taskProvider.notifyListeners();
+                saveContact(_key, task,
+                    taskProvider); // Pasar la clave del formulario al método de guardado
 
-              Navigator.of(context).pop();
+                Navigator.of(context).pop(); // Cerrar el diálogo emergente
+              }
             },
             child: Text('Guardar'),
           ),

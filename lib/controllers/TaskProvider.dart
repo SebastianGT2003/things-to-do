@@ -4,7 +4,10 @@ import 'package:things_to_do/models/Task.dart';
 class TaskProvider extends ChangeNotifier {
   // Lista privada
   List<Task> _task = [
-    Task(title: "title", description: "description", taskCompleted: false)
+    Task(
+      title: "title",
+      description: "description",
+    )
   ];
 
   //Lista publica

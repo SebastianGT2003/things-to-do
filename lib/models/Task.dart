@@ -1,12 +1,11 @@
 class Task {
   late String title;
   late String description;
-  late bool taskCompleted;
+  late bool taskCompleted = false;
 
   Task({
     required this.title,
     required this.description,
-    required this.taskCompleted,
   });
 
   Task.empty() {
