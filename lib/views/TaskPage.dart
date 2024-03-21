@@ -23,7 +23,8 @@ class _TaskPageState extends State<TaskPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // Pasar el contexto al método _showTaskDialog
-          PopUpWindow(context);
+          PopUpWindow(
+              context, Provider.of<TaskProvider>(context, listen: false));
         },
         child: const Icon(Icons.add),
       ),

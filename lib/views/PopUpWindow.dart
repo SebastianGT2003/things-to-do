@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:things_to_do/controllers/TaskProvider.dart';
+import 'package:things_to_do/models/Task.dart';
 
-Future<void> PopUpWindow(BuildContext context) async {
+Future<void> PopUpWindow(
+    BuildContext context, TaskProvider taskProvider) async {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
 
@@ -38,10 +41,16 @@ Future<void> PopUpWindow(BuildContext context) async {
               // Aquí puedes guardar la tarea con el título y la descripción
               String title = titleController.text;
               String description = descriptionController.text;
-              // Realiza acciones con los datos de la tarea (guardar, enviar, etc.)
-              // Por ahora solo imprimimos los datos
-              print('Título: $title');
-              print('Descripción: $description');
+
+              // Realizar cambios en el proveedor
+              taskProvider.addTask(Task(
+                  title: title,
+                  description: description,
+                  taskCompleted: false));
+
+              // Notificar a los widgets que escuchan cambios en el proveedor
+              taskProvider.notifyListeners();
+
               Navigator.of(context).pop();
             },
             child: Text('Guardar'),
