@@ -3,17 +3,21 @@ import 'package:things_to_do/controllers/TaskController.dart';
 import 'package:things_to_do/controllers/TaskProvider.dart';
 import 'package:things_to_do/models/Task.dart';
 
-Future<void> PopUpWindow(
-    BuildContext context, TaskProvider taskProvider) async {
-  TextEditingController titleController = TextEditingController();
-  TextEditingController descriptionController = TextEditingController();
+Future<void> EditPopUpWindow(BuildContext context, Task task, int index,
+    TaskProvider taskProvider) async {
+  TextEditingController titleController = TextEditingController(
+    text: task.title,
+  );
+  TextEditingController descriptionController = TextEditingController(
+    text: task.description,
+  );
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
 
   return showDialog(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text('Nueva Tarea'),
+        title: Text('Editar Tarea'),
         content: Form(
           key: _key, // Asociar la clave con el formulario
           child: Column(
@@ -50,18 +54,16 @@ Future<void> PopUpWindow(
                 // Aquí puedes guardar la tarea con el título y la descripción
                 String title = titleController.text;
                 String description = descriptionController.text;
-                Task task = Task(
+                Task _task = Task(
                   title: title,
                   description: description,
                 );
-
-                saveTask(task,
-                    taskProvider); // Pasar la clave del formulario al método de guardado
+                taskProvider.editTask(_task, index, taskProvider);
 
                 Navigator.of(context).pop(); // Cerrar el diálogo emergente
               }
             },
-            child: Text('Guardar'),
+            child: Text('Editar'),
           ),
         ],
       );

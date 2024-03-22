@@ -5,8 +5,8 @@ class TaskProvider extends ChangeNotifier {
   // Lista privada
   List<Task> _task = [
     Task(
-      title: "title",
-      description: "description",
+      title: "Tarea de Movil",
+      description: "Hacer crear, eliminar y editar tarea",
     )
   ];
 
@@ -17,7 +17,12 @@ class TaskProvider extends ChangeNotifier {
     _task.add(task);
   }
 
-  delteTask(Task task) {
+  deleteTask(Task task) {
     _task.remove(task);
+  }
+
+  editTask(Task task, index, TaskProvider provider) {
+    _task[index] = task;
+    provider.notifyListeners();
   }
 }
