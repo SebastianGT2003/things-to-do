@@ -37,13 +37,28 @@ class _GetListViewState extends State<GetListView> {
       padding: const EdgeInsets.all(8.0),
       child: Dismissible(
         key: UniqueKey(),
+        background: Container(
+          color: Colors.blue, // Color para editar
+          alignment: Alignment.centerLeft,
+          padding: EdgeInsets.symmetric(horizontal: 20.0),
+          child: Icon(Icons.edit, color: Colors.white),
+        ),
+        secondaryBackground: Container(
+          color: Colors.red,
+          alignment: Alignment.centerRight,
+          padding: EdgeInsets.symmetric(horizontal: 20.0),
+          child: Icon(Icons.delete, color: Colors.white),
+        ),
         onDismissed: (direction) {
           if (direction == DismissDirection.endToStart) {
             setState(() {
               provider.deleteTask(task);
             });
           } else if (direction == DismissDirection.startToEnd) {
-            setState(() {});
+            setState(() {
+              EditPopUpWindow(context, task, index,
+                  Provider.of<TaskProvider>(context, listen: false));
+            });
           }
         },
         child: ListTile(
