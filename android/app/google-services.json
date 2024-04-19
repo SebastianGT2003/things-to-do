@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "910225435271",
+    "project_id": "thingstodo-8e010",
+    "storage_bucket": "thingstodo-8e010.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:910225435271:android:571bfc2268074f30912622",
+        "android_client_info": {
+          "package_name": "com.example.things_to_do"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnj28ZQDyugvLP4Kcm9kibtsb1pXNXq5k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

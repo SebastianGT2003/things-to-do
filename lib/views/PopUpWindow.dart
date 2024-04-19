@@ -8,6 +8,7 @@ Future<void> PopUpWindow(
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
+  TaskController taskController_ = TaskController();
 
   return showDialog(
     context: context,
@@ -24,14 +25,14 @@ Future<void> PopUpWindow(
                 decoration: InputDecoration(
                   labelText: 'Título',
                 ),
-                validator: validateField,
+                validator: taskController_.validateField,
               ),
               TextFormField(
                 controller: descriptionController,
                 decoration: InputDecoration(
                   labelText: 'Descripción',
                 ),
-                validator: validateField,
+                validator: taskController_.validateField,
               ),
             ],
           ),
@@ -55,8 +56,9 @@ Future<void> PopUpWindow(
                   description: description,
                 );
 
-                saveTask(task,
+                taskController_.saveTask(task,
                     taskProvider); // Pasar la clave del formulario al método de guardado
+                taskController_.create(task);
 
                 Navigator.of(context).pop(); // Cerrar el diálogo emergente
               }

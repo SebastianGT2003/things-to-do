@@ -11,6 +11,7 @@ Future<void> EditPopUpWindow(BuildContext context, Task task, int index,
   TextEditingController descriptionController = TextEditingController(
     text: task.description,
   );
+  TaskController taskController_ = TaskController();
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
 
   return showDialog(
@@ -28,14 +29,14 @@ Future<void> EditPopUpWindow(BuildContext context, Task task, int index,
                 decoration: InputDecoration(
                   labelText: 'Título',
                 ),
-                validator: validateField,
+                validator: taskController_.validateField,
               ),
               TextFormField(
                 controller: descriptionController,
                 decoration: InputDecoration(
                   labelText: 'Descripción',
                 ),
-                validator: validateField,
+                validator: taskController_.validateField,
               ),
             ],
           ),
@@ -59,6 +60,7 @@ Future<void> EditPopUpWindow(BuildContext context, Task task, int index,
                   description: description,
                 );
                 taskProvider.editTask(_task, index, taskProvider);
+                taskController_.EditTask(_task, task.id);
 
                 Navigator.of(context).pop(); // Cerrar el diálogo emergente
               }
